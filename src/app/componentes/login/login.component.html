@@ -1,0 +1,68 @@
+<header id="main-header" class="py-2 bg-info text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><i class="fas fa-user"></i> Login </h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--Botones-->
+<section id="actions" class="py-4 mb-4 bg-light">
+  <div class="container">
+    <div class="row">
+
+
+    </div>
+  </div>
+</section>
+
+<flash-messages></flash-messages>
+
+<!--Seccion login-->
+
+<section id="login">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 mx-auto">
+
+        <!--Carta login-->
+
+        <div class="card">
+
+          <!--Cabeza de carta-->
+
+          <div class="card-header">
+            <h4>Login</h4>
+          </div>
+
+          <!--Cuerpo de carta-->
+
+          <div class="card-body">
+            <form (submit)="login()">
+
+              <!--Seccion EMAIL de form-->
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" name="email" [(ngModel)]="email" required>
+              </div>
+
+              <!--Seccion CONTRASEÑA de form-->
+              <div class="form-group">
+                <label for="contraseña">Contraseña</label>
+                <input type="password" class="form-control" name="contraseña" [(ngModel)]="password" required>
+              </div>
+
+              <!--Seccion BOTON SUMBIT-->
+              <input type="submit" value="Login" class="btn btn-primary btn-block mt-3">
+
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,196 @@
+<header id="main-header" class="py-2 bg-info text-white">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><i class="fa-user"></i> Editar Cliente</h1>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!--Cuerpo del formulario-->
+
+<form #clienteForm="ngForm" (ngSubmit)="guardar(clienteForm)">
+  <flash-messages></flash-messages>
+
+  <!--Seccion Botones-->
+
+  <section id="actions" class="py-4 mb-4 bg-light">
+    <div class="container">
+      <div class="row">
+
+        <!--Boton regresar-->
+        <div class="col-md-3">
+          <a routerLink="/" class="btn btn-primary btn-block">
+            <i class="fas fas-arrow-left"></i> Regresar al inicio
+          </a>
+        </div>
+
+        <!--Boton guardar-->
+        <div class="col-md-3">
+          <button type="submit" class="btn btn-success btn-block">
+            <i class="fas fa-check"></i> Guardar cliente
+          </button>
+        </div>
+
+        <!--Boton eliminar-->
+        <div class="col-md-3">
+          <a href="#" (click)="eliminar(clienteForm)" class="btn btn-danger btn-block">
+            <i class="fas fas-trash"></i> Eliminar cliente
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--Seccion datos-->
+
+  <section id="details">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <!--Tarjeta-->
+
+          <div class="card">
+            <!--Header de tarjeta-->
+
+            <div class="card-header">
+              <h4>Editar cliente</h4>
+            </div>
+
+            <!--Cuerpo de tarjeta-->
+
+            <div class="card-body">
+
+              <!--Campo de nombre-->
+
+              <div class="form-group">
+                <label for="nombre">Nombre</label>
+                <input
+                  type="text"
+                  name="nombre"
+                  class="form-control"
+                  #nombre="ngModel"
+                  [(ngModel)]="cliente.nombre"
+                  [ngClass]="{ 'is-invalid': nombre.errors && nombre.touched }"
+                  required
+                  minlength="2"
+                />
+
+                <!--Validaciones del campo de nombre-->
+
+                <div
+                  [hidden]="!nombre.errors?.['required']"
+                  class="invalid-feedback"
+                >
+                  Nombre requerido
+                </div>
+
+                <div
+                  [hidden]="!nombre.errors?.['minlength']"
+                  class="invalid-feedback"
+                >
+                  Debe contener al menos 2 caracteres
+                </div>
+              </div>
+
+              <!--Campo de apellido-->
+
+              <div class="form-group">
+                <label for="apellido">Apellido</label>
+                <input
+                  type="text"
+                  name="apellido"
+                  class="form-control"
+                  #apellido="ngModel"
+                  [(ngModel)]="cliente.apellido"
+                  [ngClass]="{
+                    'is-invalid': apellido.errors && apellido.touched
+                  }"
+                  required
+                  minlength="2"
+                />
+
+                <!--Validaciones del campo de apellido-->
+
+                <div
+                  [hidden]="!apellido.errors?.['required']"
+                  class="invalid-feedback"
+                >
+                  Apellido requerido
+                </div>
+
+                <div
+                  [hidden]="!apellido.errors?.['minlength']"
+                  class="invalid-feedback"
+                >
+                  Debe contener al menos 2 caracteres
+                </div>
+              </div>
+
+              <!--Campo de email-->
+
+              <div class="form-group">
+                <label for="email">Email</label>
+                <input
+                  type="text"
+                  name="email"
+                  class="form-control"
+                  #email="ngModel"
+                  [(ngModel)]="cliente.email"
+                  [ngClass]="{ 'is-invalid': email.errors && email.touched }"
+                  required
+                  pattern="[^@\s]+@[^@\s]+\.[^@\s]+"
+                />
+
+                <!--Validaciones del campo de email-->
+
+                <div
+                  [hidden]="!email.errors?.['required']"
+                  class="invalid-feedback"
+                >
+                  Email requerido
+                </div>
+
+                <div
+                  [hidden]="!email.errors?.['pattern']"
+                  class="invalid-feedback"
+                >
+                  Email no valido
+                </div>
+              </div>
+
+              <!--Campo de saldo-->
+
+              <div class="form-group">
+                <label for="saldo">Saldo</label>
+                <input
+                  type="number"
+                  name="saldo"
+                  class="form-control"
+                  #saldo="ngModel"
+                  [(ngModel)]="cliente.saldo"
+                  [ngClass]="{ 'is-invalid': saldo.errors && saldo.touched }"
+                  required
+                />
+
+                <!--Validaciones del campo de saldo-->
+
+                <div
+                  [hidden]="!saldo.errors?.['required']"
+                  class="invalid-feedback"
+                >
+                  Saldo requerido
+                </div>
+              </div>
+            </div>
+
+            <!--Fin de cuerpo de tarjeta-->
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+
+<!--Fin del cuerpo del formulario-->

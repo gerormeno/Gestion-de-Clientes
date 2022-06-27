@@ -1,0 +1,88 @@
+<!--Barra superior-->
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark p-0">
+
+  <!--Seccion CONTROL CLIENTES-->
+
+  <div class="container">
+    <a routerLink="/" class="navbar-brand"> Control Clientes </a>
+
+    <!--Boton con atributos collapse para que se muestre al achicarse la pantalla-->
+
+    <button
+      class="navbar-toggler"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarCollapse"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+  </div>
+
+  <!--Lista de elementos que se desplegaran del boton collapse-->
+
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+
+    <!--Elemento INICIO-->
+
+    <ul *ngIf="estaLoggeado" class="navbar-nav">
+      <li class="nav-item px-2">
+        <a routerLink="/" class="nav-link"> Inicio </a>
+      </li>
+    </ul>
+
+    <ul class="navbar-nav ml-auto">
+
+      <!--Elemento que despliega otra lista de elementos-->
+
+      <li *ngIf="estaLoggeado" class="nav-item dropdown mr-3">
+
+        <!--Elemento BIENVENIDO que sera el que muestra la otra lista-->
+
+        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+          <i class="fas fa-user"></i> Bienvenido {{usuarioLog}}
+        </a>
+
+        <!--Item CONFIGURACION de la lista de bienvenido-->
+
+        <div class="dropdown-menu">
+          <a routerLink="/configuracion" class="dropdown-item">
+            <i class="fas fa-cog"></i> Configuracion
+          </a>
+        </div>
+
+      </li>
+
+    </ul>
+
+    <!--Elemento LOGIN-->
+
+    <ul class="navbar-nav">
+      <li *ngIf="!estaLoggeado && permitirRegistro" class="nav-item px-2">
+        <a routerLink="/login" class="nav-link">
+          <i class="fas fa-user"></i>Login
+        </a>
+      </li>
+    </ul>
+
+    <!--Elemento SALIR-->
+
+    <ul class="navbar-nav">
+      <li *ngIf="estaLoggeado" class="nav-item px-2">
+        <a style="cursor: pointer" (click)="logout()" class="nav-link">
+          <i class="fas fa-user-times"></i>Salir
+        </a>
+      </li>
+    </ul>
+
+    <!--Elemento REGISTRARSE-->
+
+    <ul class="navbar-nav">
+      <li *ngIf="!estaLoggeado && permitirRegistro" class="nav-item px-2">
+        <a routerLink="/registrarse" class="nav-link" routerLinkActive="router-link-active">
+          <i class="fas fa-user"></i>Registro
+        </a>
+      </li>
+    </ul>
+
+
+  </div>
+</nav>

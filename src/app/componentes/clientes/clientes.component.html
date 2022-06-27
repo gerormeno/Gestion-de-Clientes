@@ -1,0 +1,207 @@
+<!--Botones-->
+
+<section id="actions" class="py-4 mb-4 bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3">
+        <a
+          href="#"
+          class="btn btn-primary btn-block"
+          data-bs-toggle="modal"
+          data-bs-target="#agregarClienteModal"
+        >
+          <i class="fa fa-plus"> </i> Agregar cliente
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!--Listado de clientes-->
+
+<section id="clientes">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="card">
+          <div class="card-header">
+            <h4>Listado de clientes</h4>
+          </div>
+
+          <!--Cuerpo de la tabla-->
+
+          <table class="table table-striped">
+
+            <!--Titulos de columnas de la tabla-->
+
+            <thead class="table-dark">
+              <tr>
+                <th>#</th>
+                <th>Nombre</th>
+                <th>Saldo</th>
+                <th></th>
+              </tr>
+            </thead>
+
+            <!--Elementos de la tabla-->
+
+            <tbody>
+              <tr *ngFor="let cliente of clientes; let i = index">
+                <td>{{ i + 1 }}</td>
+                <td>{{ cliente.nombre }} {{ cliente.apellido }}</td>
+                <td>{{ cliente.saldo | currency: "ARS":"$" }}</td>
+                <td>
+                  <a
+                    routerLink="/cliente/editar/{{ cliente.id }}"
+                    class="btn btn-secondary"
+                  >
+                    <i class="fas fa-angle-double-right"></i> Editar
+                  </a>
+                </td>
+              </tr>
+            </tbody>
+
+          </table>
+
+        </div>
+      </div>
+
+      <!--Tarjetas laterales-->
+
+      <div class="col-md-3">
+
+        <!--Tareta de saldo total-->
+
+        <div class="card text-center bg-danger text-white mb-3">
+          <div class="card-body">
+            <h3>Saldo total</h3>
+            <h4 class="display-4">
+              {{ getSaldoTotal() | currency: "ARS":"$" }}
+            </h4>
+          </div>
+        </div>
+
+        <!--Tarjeta de cantidad de clientes-->
+
+        <div class="card text-center bg-success text-white mb-3">
+          <div class="card-body">
+            <h3>Total Clientes</h3>
+            <h4 class="display-4">
+              <i class="fas fa-users"></i> {{ clientes?.length }}
+            </h4>
+          </div>
+        </div>
+
+      </div>
+
+      <!--Fin de tarjetas laterales-->
+
+    </div>
+  </div>
+</section>
+
+<!--Agregar cliente modal-->
+
+<div class="modal fade" id="agregarClienteModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header bg-info text-white">
+        <h5 class="modal-title"> Agregar cliente </h5>
+        <button class="close" data-bs-dismiss="modal" #botonCerrar>
+          <span>&times;</span>
+        </button>
+      </div>
+
+      <!--Formulario-->
+
+      <flash-messages></flash-messages>
+
+      <!--Cuerpo del formulario-->
+
+      <form #clienteForm="ngForm" (ngSubmit)="agregar(clienteForm)">
+        <div class="modal-body">
+
+          <!--Campo de nombre-->
+
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" name="nombre" class="form-control" #nombre="ngModel" [(ngModel)]="cliente.nombre" [ngClass]="{'is-invalid': nombre.errors && nombre.touched}" required minlength="2">
+
+            <!--Validaciones del campo de nombre-->
+
+            <div [hidden] = "!nombre.errors?.['required']" class="invalid-feedback">
+              Nombre requerido
+            </div>
+
+            <div [hidden] = "!nombre.errors?.['minlength']" class="invalid-feedback">
+              Debe contener al menos 2 caracteres
+            </div>
+
+          </div>
+
+          <!--Campo de apellido-->
+
+          <div class="form-group">
+            <label for="apellido">Apellido</label>
+            <input type="text" name="apellido" class="form-control" #apellido="ngModel" [(ngModel)]="cliente.apellido" [ngClass]="{'is-invalid': apellido.errors && apellido.touched}" required minlength="2" >
+
+            <!--Validaciones del campo de apellido-->
+
+            <div [hidden] = "!apellido.errors?.['required']" class="invalid-feedback">
+              Apellido requerido
+            </div>
+
+            <div [hidden] = "!apellido.errors?.['minlength']" class="invalid-feedback">
+              Debe contener al menos 2 caracteres
+            </div>
+
+          </div>
+
+          <!--Campo de email-->
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" class="form-control" #email="ngModel" [(ngModel)]="cliente.email" [ngClass]="{'is-invalid': email.errors && email.touched}" required pattern="[^@\s]+@[^@\s]+\.[^@\s]+">
+
+            <!--Validaciones del campo de email-->
+
+            <div [hidden] = "!email.errors?.['required']" class="invalid-feedback">
+              Email requerido
+            </div>
+
+            <div [hidden] = "!email.errors?.['pattern']" class="invalid-feedback">
+              Email no valido
+            </div>
+
+          </div>
+
+          <!--Campo de saldo-->
+
+          <div class="form-group">
+            <label for="saldo">Saldo</label>
+            <input type="number" name="saldo" class="form-control" #saldo="ngModel" [(ngModel)]="cliente.saldo" [ngClass]="{'is-invalid': saldo.errors && saldo.touched}" required >
+
+            <!--Validaciones del campo de saldo-->
+
+            <div [hidden] = "!saldo.errors?.['required']" class="invalid-feedback">
+              Saldo requerido
+            </div>
+
+          </div>
+
+          <!--Footer del formulario-->
+
+          <div class="modal-footer">
+            <button type="submit" class="btn btn-primary"> Guardar </button>
+          </div>
+
+        </div>
+      </form>
+
+      <!--Fin del cuerpo del formulario-->
+
+    </div>
+  </div>
+</div>
+
